@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CardiacControl extends Migration
+class Heartbeat extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CardiacControl extends Migration
      */
     public function up()
     {
-        Schema::create('cardiac_control', function (Blueprint $table) {
+        Schema::create('heartbeat', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_user');            
-            $table->unsignedInteger('id_pulse');
-            $table->foreign('id_pulse')->references('id')->on('heartbeat')->onDelete('cascade');
+            $table->string('pulse');
+            $table->string('status');
+            $table->string('date');
+            $table->unsignedInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users');
             $table->timestamps();
         });
@@ -30,6 +31,6 @@ class CardiacControl extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cardiac_control');
+        Schema::dropIfExists('heartbeat');
     }
 }

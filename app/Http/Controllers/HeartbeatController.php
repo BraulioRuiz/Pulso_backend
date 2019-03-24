@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Heartbeat;
-use App\Cardiac_Control;
+//use App\Cardiac_Control;
 use App\Users;
 use App\Http\Resources\Heartbeat as HeartbeatResources;
 
@@ -17,7 +17,7 @@ class HeartbeatController extends Controller
      */
     public function index()
     {
-        return HeartbeatResources::collection(Cardiac_Control::All());
+        return HeartbeatResources::collection(Heartbeat::All());
     }    
 
     /**
@@ -32,12 +32,13 @@ class HeartbeatController extends Controller
         $heartbeat->pulse = $request->pulse;
         $heartbeat->status = $request->status;
         $heartbeat->date = $request->date;
+        $heartbeat->id_user = $request->id_user;
         $heartbeat->save();
-        $control = new Cardiac_Control();
-        $control->id_user = $request->id_user;
-        $control->id_pulse = $heartbeat->id;
-        $control->save();
-        return $control;
+        // $control = new Cardiac_Control();
+        // $control->id_user = $request->id_user;
+        // $control->id_pulse = $heartbeat->id;
+        // $control->save();
+        return $heartbeat;
     }
 
     /**
@@ -48,7 +49,7 @@ class HeartbeatController extends Controller
      */
     public function show($id)
     {
-        $control = new HeartbeatResources(Cardiac_Control::find($id));
+        $control = new HeartbeatResources(Heartbeat::find($id));
         return $control;
     }
     
@@ -62,8 +63,8 @@ class HeartbeatController extends Controller
      */
     public function update(Request $request, $id)
     {     
-        $control = Cardiac_Control::find($id);   
-        $heartbeat = Heartbeat::where('id', $control->id_pulse)->first();
+        //$control = Cardiac_Control::find($id);   
+        $heartbeat = Heartbeat::find($id)->first();
         $heartbeat->pulse = $request->pulse;
         $heartbeat->status = $request->status;
         $heartbeat->date = $request->date;
@@ -71,7 +72,7 @@ class HeartbeatController extends Controller
         // $control->id_user = $request->id_user;
         // $control->id_pulse = $heartbeat->id;
         // $control->update();     
-        return new HeartbeatResources($control);
+        return new HeartbeatResources($heartbeat);
     }
 
     /**
@@ -82,7 +83,7 @@ class HeartbeatController extends Controller
      */
     public function destroy($id)
     {
-        Cardiac_Control::destroy($id);
+        Heartbeat::destroy($id);
         return 1;
     }
 }

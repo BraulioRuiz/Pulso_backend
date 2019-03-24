@@ -15,10 +15,11 @@ class Heartbeat extends JsonResource
     public function toArray($request){
         return [
             'id' => $this->id,            
-            'id_user' => $this->id_user,
-            'id_pulse' => $this->id_pulse,   
-            'date' => $this->date,     
-            'data' => $this->data($this->id)            
+            'pulse' => $this->pulse,
+            'status' => $this->status,   
+            'date' => $this->date,   
+            'id_user'=> $this->id_user,  
+            //'data' => $this->data($this->id_user)            
         ];
     }
    
