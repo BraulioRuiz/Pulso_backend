@@ -20,6 +20,10 @@ class HeartbeatController extends Controller
         return HeartbeatResources::collection(Heartbeat::All());
     }    
 
+    public function getpulsos($id){
+        return HeartbeatResources::collection(Heartbeat::where('id_user', '=', $id)->get());
+    }
+
     /**
      * Store a newly created resource in storage.
      *

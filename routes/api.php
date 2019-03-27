@@ -21,3 +21,5 @@ Route::apiResources([
     'usuario' => 'UsersController',
     'pulso' => 'HeartbeatController',
 ]);
+
+Route::get('/miPulso/{id}', 'HeartbeatController@getpulsos');
