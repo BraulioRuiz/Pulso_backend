@@ -38,12 +38,26 @@ class UsersController extends Controller
         $data->save();
         $user = new Users();
         $user->email = $request->email;
-        if($request->password1 == $request->password2){
-            $user->password = $request->password1;
-        }
+        $user->password = $request->password;
         $user->id_data = $data->id;
         $user->save();
-        return $user;        
+        return $user;  
+        console.log(data);      
+    }
+
+    public function login(Request $request){
+        $usuario = Users::where('email', '=', $request->email)
+        ->where('password', '=', $request->password)
+        ->first();
+        if($usuario == null){
+            return 0;
+        }
+        return $usuario;
+    }
+
+    public function ggg($id){
+        $data = Data_User::find($id);
+        return $data;
     }
 
     /**
